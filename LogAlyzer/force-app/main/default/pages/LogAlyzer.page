@@ -1,0 +1,25 @@
+<apex:page Controller="LogAlyzerController">
+ <apex:detail subject="{!LogFile}" relatedList="false" title="false"/>
+ <apex:outputPanel id="msg">
+            <apex:pageMessages />
+ </apex:outputPanel> 
+ <apex:form id="ParseLogForm">
+ <apex:commandButton action="{!OnePassDigest}" value="Digest Log" rendered="{!NOT(logLinesExist)}" /> 
+ <apex:commandButton action="{!DeleteLines}" value="Delete Lines" rendered="{!logLinesExist}" /> 
+ <apex:commandButton action="{!Analyze}" value="Analyze Log" rendered="{!logLinesExist}" /> 
+
+ </apex:form>
+ <apex:outputPanel id="logLines">
+ <apex:form id="LogLineForm">
+ <apex:pageBlock >
+ <apex:pageblocktable value="{!LogLines}" var="l" id="LogLineTable" >
+<apex:column >
+<apex:outputLink value="/{!l.id}">{!l.Log_Data__c}</apex:outputLink>
+</apex:column>
+<apex:column value="{!l.Comment__c}" />
+</apex:pageblocktable>
+ 
+ </apex:pageBlock>
+ </apex:form>
+ </apex:outputPanel>
+</apex:page>

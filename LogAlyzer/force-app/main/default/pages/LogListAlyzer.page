@@ -1,0 +1,24 @@
+<apex:page controller="LogListAlyzerController" >
+<apex:pageblock >
+<apex:form >
+<apex:pageblocktable value="{!ApexLogs}" var="l" id="LogTable" >
+<apex:column value="{!l.LogUser.Name}"/>
+<apex:column value="{!l.Application}"/>
+<apex:column value="{!l.Location}"/>
+<apex:column value="{!l.LogLength}"/>
+<apex:column value="{!l.Status}"/>
+<apex:column value="{!l.Request}"/>
+<apex:column value="{!l.Operation}"/>
+<apex:column value="{!l.DurationMilliseconds}"/>
+<apex:column headerValue="Actions">
+    <apex:commandLink action="{!AnalyzeLog}" value="Start Analysis">
+        <apex:param name="ApexLogId" value="{!l.id}"/>
+    </apex:commandLink>
+</apex:column>
+
+
+</apex:pageblocktable>
+</apex:form>
+</apex:pageblock>
+
+</apex:page>
