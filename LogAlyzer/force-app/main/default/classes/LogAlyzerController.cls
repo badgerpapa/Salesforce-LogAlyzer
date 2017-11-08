@@ -23,10 +23,14 @@ Public Class LogAlyzerController {
         system.debug(LinesToDelete);
         delete LinesToDelete;
         Database.emptyRecycleBin(LinesToDelete);
+        LogFile.Status__c = 'New';
+        update LogFile;
         return System.currentPageReference();
     }  
 
     Public PageReference Analyze() {
+    		LogFile.Status__c = 'Analyzing';
+    		update LogFile;
         return null;
     }
     
@@ -93,12 +97,14 @@ Public Class LogAlyzerController {
             }
         }
         insert LogLines;
+        LogFile.Status__c = 'Digested';
+        update LogFile;
         Return System.currentPageReference();    
      }
      
   private String getBody(Id ApexLogId) {
     // Instantiate a new http object
-    String hostURL= 'https://na50.salesforce.com';
+    String hostURL= 'https://cs66.salesforce.com';
     String requestPath = '/services/data/v40.0/sobjects/ApexLog/' + ApexLogId + '/Body';
     
     Http h = new Http();
